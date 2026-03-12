@@ -37,7 +37,8 @@ init_db()  # Call before app starts
 
 # ----------------- Flask App -----------------
 app = Flask(__name__, template_folder='templates', static_folder='static')
-app.secret_key = "your_secret_key"
+import os
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "default_secret")
 
 # ----------------- Database Connection -----------------
 def get_db():
