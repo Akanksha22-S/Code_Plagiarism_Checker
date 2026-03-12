@@ -5,12 +5,12 @@ import sqlite3
 import os
 from logic_similarity import compute_similarity
 
------------------ Flask App -----------------
+#----------------- Flask App -----------------
 
 app = Flask(name, template_folder='templates', static_folder='static')
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "default_secret")
 
------------------ Auto-create Database Tables -----------------
+#----------------- Auto-create Database Tables -----------------
 
 def init_db():
 conn = sqlite3.connect("database.db")
@@ -41,14 +41,14 @@ conn.close()
 
 init_db()
 
------------------ Database Connection -----------------
+#----------------- Database Connection -----------------
 
 def get_db():
 conn = sqlite3.connect("database.db")
 conn.row_factory = sqlite3.Row
 return conn
 
------------------ Pages -----------------
+#----------------- Pages -----------------
 
 @app.route("/")
 def index():
@@ -92,7 +92,7 @@ conn.close()
 
 return render_template("hackhistory.html", reports=reports)
 
------------------ Signup -----------------
+#----------------- Signup -----------------
 
 @app.route("/signup_user", methods=["POST"])
 def signup_user():
@@ -123,7 +123,7 @@ except sqlite3.IntegrityError:
     conn.close()
     return jsonify({"status": "fail", "message": "Email already exists"})
 
------------------ Login -----------------
+#----------------- Login -----------------
 
 @app.route("/login_user", methods=["POST"])
 def login_user():
@@ -151,7 +151,7 @@ if user:
 else:
     return jsonify({"status": "fail", "message": "Invalid credentials"})
 
------------------ Plagiarism Detection -----------------
+#----------------- Plagiarism Detection -----------------
 
 @app.route("/check", methods=["POST"])
 def check():
@@ -202,7 +202,7 @@ return jsonify({
     "language": language
 })
 
------------------ Logout -----------------
+#----------------- Logout -----------------
 
 @app.route("/logout")
 def logout():
@@ -213,7 +213,7 @@ return redirect("/hacklogin.html")
 def health():
 return "OK"
 
------------------ Run -----------------
+#----------------- Run -----------------
 
 if name == "main":
 port = int(os.environ.get("PORT", 10000))
