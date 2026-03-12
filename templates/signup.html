@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Signup</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+}
+
+.container{
+margin-top:120px;
+}
+
+input{
+padding:10px;
+margin:10px;
+width:250px;
+}
+
+button{
+padding:10px 25px;
+background:#22d3ee;
+border:none;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Signup</h1>
+
+<input id="username" placeholder="Username"><br>
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+
+<button onclick="signupUser()">Signup</button>
+
+</div>
+
+<script>
+
+function signupUser(){
+
+let username=document.getElementById("username").value
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+
+let formData=new FormData()
+
+formData.append("username",username)
+formData.append("email",email)
+formData.append("password",password)
+
+fetch("/signup_user",{
+method:"POST",
+body:formData
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status=="success"){
+
+alert("Signup Successful")
+
+window.location.href="/hackdetection.html"
+
+}
+
+else{
+
+alert("Signup Failed")
+
+}
+
+})
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reports</title>
+
+<style>
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+    text-align:center;
+}
+
+h1{
+    margin-top:30px;
+    color:#22d3ee;
+}
+
+table{
+    margin:auto;
+    border-collapse:collapse;
+    width:80%;
+    margin-top:30px;
+}
+
+td, th{
+    border:1px solid white;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#1e293b;
+    color:#22d3ee;
+}
+
+tr:nth-child(even){
+    background:#111827;
+}
+
+tr:nth-child(odd){
+    background:#1f2937;
+}
+
+button{
+    padding:10px 20px;
+    margin:20px;
+    border:none;
+    border-radius:5px;
+    background:#0ea5e9;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0284c7;
+}
+
+a.download-link{
+    color:#00e5ff;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Your Plagiarism Reports</h1>
+
+<table>
+<tr>
+    <th>ID</th>
+    <th>Similarity (%)</th>
+    <th>Language</th>
+    <th>Download</th>
+</tr>
+
+{% for r in reports %}
+<tr>
+    <td>{{ r.id }}</td>
+    <td>{{ r.similarity }}%</td>
+    <td>{{ r.language }}</td>
+    <td>
+        <a href="/download_report" class="download-link">Download Latest</a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+<button onclick="window.location.href='/hackdetection.html'">Back to Detector</button>
+<button onclick="window.location.href='/logout'">Logout</button>
+
+</body>
+</html>-

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+}
+
+.container{
+margin-top:120px;
+}
+
+input{
+padding:10px;
+margin:10px;
+width:250px;
+}
+
+button{
+padding:10px 25px;
+background:#22d3ee;
+border:none;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Login</h1>
+
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+
+<button onclick="loginUser()">Login</button>
+
+</div>
+
+<script>
+
+function loginUser(){
+
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+
+let formData=new FormData()
+
+formData.append("email",email)
+formData.append("password",password)
+
+fetch("/login_user",{
+method:"POST",
+body:formData
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status=="success"){
+
+alert("Login Successful")
+
+window.location.href="/hackdetection.html"
+
+}
+
+else{
+
+alert("Credentials not found. Please Signup")
+
+window.location.href="/signup.html"
+
+}
+
+})
+
+}
+
+</script>
+
+</body>
+</html>

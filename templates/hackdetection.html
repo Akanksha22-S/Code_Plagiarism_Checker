@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Code Plagiarism Detector</title>
+<style>
+body { margin: 0; font-family: Arial, sans-serif; background: #f1f5f9; text-align: center; }
+.container { margin-top: 50px; background: white; width: 70%; margin: auto; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+textarea { width: 400px; height: 200px; margin: 20px; background: #0f172a; color: white; border: none; border-radius: 10px; padding: 15px; }
+button { padding: 12px 25px; background: #0ea5e9; border: none; cursor: pointer; color: white; margin: 5px; }
+.progress { width: 50%; margin: auto; background: #cbd5e1; height: 25px; border-radius: 20px; margin-top: 20px; }
+.bar { height: 100%; width: 0%; background: red; }
+#result { margin-top: 20px; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Code Plagiarism Detector</h1>
+
+<label>Select Code Language: </label>
+<select id="language">
+  <option value="python">Python</option>
+  <option value="java">Java</option>
+  <option value="cpp">C/C++</option>
+  <option value="js">JavaScript</option>
+</select>
+
+<br><br>
+<textarea id="code1" placeholder="Paste Code 1"></textarea>
+<textarea id="code2" placeholder="Paste Code 2"></textarea>
+
+<br>
+<button onclick="checkSimilarity()">Check Similarity</button>
+<button onclick="window.location.href='/hackhistory.html'">View Reports</button>
+<button onclick="window.location.href='/logout'">Logout</button>
+
+<h2 id="result"></h2>
+<div id="extra"></div>
+
+<div class="progress">
+  <div class="bar" id="bar"></div>
+</div>
+</div>
+
+<script>
+function checkSimilarity(){
+  const code1 = document.getElementById("code1").value.trim();
+  const code2 = document.getElementById("code2").value.trim();
+  const language = document.getElementById("language").value;
+
+  if (!code1 || !code2){
+    alert("Please enter code in both fields");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("code1", code1);
+  formData.append("code2", code2);
+  formData.append("language", language);
+
+  fetch("/check", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Error checking similarity. Make sure you are logged in.");
+    return res.json();
+  })
+  .then(data => {
+    if (data.error){
+      alert(data.error);
+      return;
+    }
+    document.getElementById("result").innerText = "Similarity: " + data.similarity + "%";
+    document.getElementById("bar").style.width = data.similarity + "%";
+    document.getElementById("extra").innerHTML =
+      "Plagiarism Level: " + data.level + "<br>" +
+      "Matched Tokens: " + data.matched_tokens + "<br>" +
+      "Code1 Length: " + data.code1_length + " tokens<br>" +
+      "Code2 Length: " + data.code2_length + " tokens<br>" +
+      "Language: " + data.language;
+  })
+  .catch(err => alert(err.message));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Code Plagiarism Checker</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f7fb;
+color:white;
+}
+
+/* NAVIGATION */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:transparent;
+}
+
+nav h2{
+color:black;
+}
+
+nav ul{
+list-style:none;
+display:flex;
+gap:30px;
+}
+
+nav ul li a{
+text-decoration:none;
+color:#0f172a;
+font-size:16px;
+transition:0.3s;
+}
+
+nav ul li a:hover{
+color:#0284c7;
+}
+
+
+/* HERO SECTION */
+
+.hero{
+display:flex;
+align-items:center;
+height:85vh;
+padding-left:80px;
+
+background:
+linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),
+url("https://images.unsplash.com/photo-1518770660439-4636190af475");
+
+background-size:cover;
+background-position:center;
+}
+
+.content{
+max-width:600px;
+}
+
+.content h1{
+font-size:55px;
+color:#00e5ff;
+margin-bottom:20px;
+}
+
+.content p{
+font-size:18px;
+margin-bottom:25px;
+color:#d1d1d1;
+}
+
+.features{
+margin-top:20px;
+}
+
+.features li{
+margin:12px 0;
+font-size:18px;
+list-style:none;
+}
+
+.features li::before{
+content:"● ";
+color:#00e5ff;
+font-size:20px;
+}
+
+.btn{
+display:inline-block;
+margin-top:25px;
+padding:12px 25px;
+background:#00e5ff;
+color:black;
+text-decoration:none;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn:hover{
+background:#00bcd4;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<h2>Plagiarism Checker</h2>
+
+<ul>
+
+<li><a href="hackathon.html">Home</a></li>
+<li><a href="hackabout.html">About</a></li>
+<li><a href="hackdetection.html">Detector</a></li>
+<li><a href="hacklogin.html">Login</a></li>
+<li><a href="signup.html">Signup</a></li>
+
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<div class="content">
+
+<h1>CODE PLAGIARISM CHECKER</h1>
+
+<p>
+This system uses intelligent algorithms to detect code similarity and identify plagiarism quickly.
+</p>
+
+<ul class="features">
+
+<li>High Accuracy</li>
+<li>Fast Speed</li>
+<li>Detailed Reports</li>
+<li>Support for Multiple Languages</li>
+
+</ul>
+
+<a href="hackdetection.html" class="btn">Start Detection</a>
+
+</div>
+
+</section>
+
+</body>
+
+</html>
