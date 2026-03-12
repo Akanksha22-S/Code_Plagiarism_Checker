@@ -1,0 +1,133 @@
+signup.js:
+<script>
+
+function signupUser(){
+
+let username=document.getElementById("username").value
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+
+let formData=new FormData()
+
+formData.append("username",username)
+formData.append("email",email)
+formData.append("password",password)
+
+fetch("/signup_user",{
+method:"POST",
+body:formData
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status=="success"){
+
+alert("Signup Successful")
+
+window.location.href="/hackdetection.html"
+
+}
+
+else{
+
+alert("Signup Failed")
+
+}
+
+})
+
+}
+
+</script>
+
+
+hacklogin.js:
+<script>
+
+function loginUser(){
+
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+
+let formData=new FormData()
+
+formData.append("email",email)
+formData.append("password",password)
+
+fetch("/login_user",{
+method:"POST",
+body:formData
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status=="success"){
+
+alert("Login Successful")
+
+window.location.href="/hackdetection.html"
+
+}
+
+else{
+
+alert("Credentials not found. Please Signup")
+
+window.location.href="/signup.html"
+
+}
+
+})
+
+}
+
+</script>
+
+<script>
+function checkSimilarity(){
+  const code1 = document.getElementById("code1").value.trim();
+  const code2 = document.getElementById("code2").value.trim();
+  const language = document.getElementById("language").value;
+
+  if (!code1 || !code2){
+    alert("Please enter code in both fields");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("code1", code1);
+  formData.append("code2", code2);
+  formData.append("language", language);
+
+  fetch("/check", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Error checking similarity. Make sure you are logged in.");
+    return res.json();
+  })
+  .then(data => {
+    if (data.error){
+      alert(data.error);
+      return;
+    }
+    document.getElementById("result").innerText = "Similarity: " + data.similarity + "%";
+    document.getElementById("bar").style.width = data.similarity + "%";
+    document.getElementById("extra").innerHTML =
+      "Plagiarism Level: " + data.level + "<br>" +
+      "Matched Tokens: " + data.matched_tokens + "<br>" +
+      "Code1 Length: " + data.code1_length + " tokens<br>" +
+      "Code2 Length: " + data.code2_length + " tokens<br>" +
+      "Language: " + data.language;
+  })
+  .catch(err => alert(err.message));
+}
+</script>
+
+
+
