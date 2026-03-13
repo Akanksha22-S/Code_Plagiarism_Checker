@@ -1,4 +1,7 @@
+# Ignore Python cache
 __pycache__/
 *.pyc
+
+# Ignore local files
 database.db
 .env
